@@ -16,5 +16,6 @@
   },
   "homepage": "https://github.com/MomsFriendlyDevCo/doop-service-debug#readme",
   "dependencies": {
+    "gulp": "^4.0.2"
   }
 }
