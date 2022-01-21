@@ -1,6 +1,6 @@
 {
   "name": "@doop/service-debug",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A debug service for the Doop framework",
   "main": "libs/debug-factory.js",
   "repository": {
