@@ -5,7 +5,7 @@
   "main": "libs/debug-factory.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MomsFriendlyDevCo/doop-service-debug.git"
+    "url": "git+https://github.com/MomsFriendlyDevCo/doop-debug.git"
   },
   "keywords": [
     "doop"
@@ -13,9 +13,9 @@
   "author": "Matt Carter <m@ttcarter.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/MomsFriendlyDevCo/doop-service-debug/issues"
+    "url": "https://github.com/MomsFriendlyDevCo/doop-debug/issues"
   },
-  "homepage": "https://github.com/MomsFriendlyDevCo/doop-service-debug#readme",
+  "homepage": "https://github.com/MomsFriendlyDevCo/doop-debug#readme",
   "dependencies": {
     "@momsfriendlydevco/email": "^2.3.5",
     "gulp": "^4.0.2",
