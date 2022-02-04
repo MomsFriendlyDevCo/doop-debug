@@ -1,3 +1,6 @@
+const debug = require('debug')('doop:debug');
+debug('Init gulp debug.email');
+
 const email = require('@momsfriendlydevco/email');
 const gulp = require('gulp');
 
@@ -6,7 +9,7 @@ const gulp = require('gulp');
 * @param {string} process.env.EMAIL_TO Email address to send to
 * @param {string} [process.env.EMAIL_FROM=app.config.session.from] Email to send from (system default if unspecified)
 */
-gulp.task('debug.email.send', ['load:app'], ()=> {
+gulp.task('debug.email.send', 'load:app', ()=> {
 	if (!process.env.EMAIL_TO) throw new Error('ENV EMAIL_TO must be set to test email');
 
 	return email().send({
