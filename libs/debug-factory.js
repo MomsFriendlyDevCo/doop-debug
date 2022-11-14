@@ -50,26 +50,27 @@ var DebugFactory = function DebugFactory(context) {
 		return $debug;
 	};
 
-	$debug.$prefix = 'UNKNOWN';
-	$debug.$enabled = true;
-	$debug.as = 'log'; // Method to use to output
-
 
 	/**
 	* Set the $debug prefix based either on a simple string or try to extract it from a VueComponent automatically
 	* @param {Object|VueComponent} context Either a string ID prefix or a VueComponent to extract one from
 	*/
 	$debug.prefix = function(context) {
-		this.$prefix =
+		$debug.$prefix =
 			_.isString(context) ? context
-			: this._id ? this._id // If the component has a specified ID
-			: this.$vnode && this.$vnode.tag ? this.$vnode.tag.replace(/^vue-component-\d+-/, '') // Use a (mangled) Vue tag
-			: this._uid ? this._uid
+			: context.$options?.name ? context.$options.name // If the component has a specified name
+			: context.$options?._componentTag ? _.camelCase(context.$options._componentTag) // If the component has a specified tag
+			: context.$vnode?.tag ? context.$vnode.tag.replace(/^vue-component-\d+-/, '') // Use a (mangled) Vue tag
+			: context._id ? context._id // If the component has a specified ID
+			: context._uid ? context._uid
 			: (()=> { // Try to read stack trace
-				var caller = Error().stack.split('\n').slice(3, 4);
+				// FIXME: Finds itself as "DebugFactory" with (3,4), perhaps (4,5) is the correct parent?
+				var caller = Error().stack.split('\n').slice(4, 5);
 				if (!caller) return;
+
 				var callerBits = /^\s+at (.+) /.exec(caller);
 				if (!callerBits) return;
+
 				return callerBits[1];
 
 			})() || 'UNKNOWN';
@@ -177,8 +178,14 @@ var DebugFactory = function DebugFactory(context) {
 	$debug.toString = ()=> '[$debug]';
 
 
-	// Return this instance
-	if (context) $debug.prefix(context);
+	// Initialise static variables
+	$debug.$prefix = '';
+	$debug.$enabled = true;
+	$debug.as = 'log'; // Method to use to output
+
+	// Initialise prefix
+	$debug.prefix(context);
+
 	return $debug;
 };
 
